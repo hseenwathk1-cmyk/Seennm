@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>س</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1f4d3a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="س">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root{--bg:#fff;--ink:#16241d;--mut:#6b7a72;--g:#1f4d3a;--g2:#2d6a50;--glass:rgba(255,255,255,.62);--glass-p:rgba(228,232,230,.9);--bd:rgba(31,77,58,.14);--sh:0 8px 28px rgba(31,77,58,.10);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#fff;--ink:#16241d}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{font-family:Cairo,Tahoma,sans-serif;background:var(--bg);color:var(--ink);overflow:hidden;
+background-image:radial-gradient(circle at 85% 8%,#e3f1ea 0,transparent 38%),radial-gradient(circle at 10% 92%,#eef3f0 0,transparent 40%)}
+.screen{position:absolute;inset:0;padding:18px 18px 24px;overflow-y:auto;transform:translateX(-40px);opacity:0;pointer-events:none;transition:transform .38s cubic-bezier(.2,.8,.2,1),opacity .38s}
+.screen.on{transform:none;opacity:1;pointer-events:auto}
+.screen.back{transform:translateX(40px)}
+.glass{background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--bd);border-radius:20px;box-shadow:var(--sh);transition:background .12s,transform .12s}
+.press:active,.glass.press:active{background:var(--glass-p);transform:scale(.97)}
+button{font:inherit;color:inherit;cursor:pointer}
+.btn{padding:11px 18px;border-radius:14px;border:1px solid var(--bd);background:var(--glass);transition:background .12s,transform .12s;font-weight:600}
+.btn:active{background:var(--glass-p);transform:scale(.96)}
+.btn.pri{background:var(--g);color:#fff;border-color:var(--g)}
+.btn.pri:active{background:#143528}
+.top{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.top h2{margin:0;font-size:20px;flex:1}
+.logo{width:64px;height:64px;border-radius:22px;background:linear-gradient(145deg,var(--g2),var(--g));color:#fff;display:grid;place-items:center;font-size:40px;font-weight:800;box-shadow:var(--sh)}
+.hero{text-align:center;padding:26px 0 22px}
+.hero h1{margin:12px 0 4px;font-size:30px}.hero p{margin:0;color:var(--mut)}
+.card{display:flex;align-items:center;gap:14px;padding:22px;width:100%;margin-bottom:14px;text-align:right}
+.card.dark{background:rgba(31,77,58,.9);color:#fff;border-color:var(--g)}
+.card.dark:active{background:rgba(20,53,40,.95)}
+.card .ic{font-size:30px}.card b{font-size:18px;display:block}.card small{opacity:.75}
+.go{margin-inline-start:auto;padding:8px 16px;border-radius:12px;background:rgba(255,255,255,.2);font-weight:600}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sub{padding:26px 8px;text-align:center;font-weight:600;font-size:17px}
+.field{display:block;margin-bottom:12px}.field span{font-size:13px;color:var(--mut);display:block;margin-bottom:4px}
+input,select,textarea{width:100%;font:inherit;padding:10px 12px;border-radius:12px;border:1px solid var(--bd);background:rgba(255,255,255,.8);color:var(--ink)}
+.row{display:flex;gap:10px}.row>*{flex:1}
+.sec{padding:16px;margin-bottom:14px}.sec h3{margin:0 0 12px;font-size:15px;color:var(--g)}
+.tb{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.tb button{min-width:40px;padding:8px 10px;border-radius:11px;border:1px solid var(--bd);background:var(--glass);transition:background .12s,transform .12s}
+.tb button:active{background:var(--glass-p);transform:scale(.93)}
+.q{min-height:180px;padding:14px;border-radius:16px;border:1px solid var(--bd);background:rgba(255,255,255,.85);outline:none;line-height:1.8}
+.q img{max-width:100%}.q table{border-collapse:collapse;width:100%}.q td,.q th{border:1px solid #777;padding:6px}
+.nav{display:flex;gap:10px;align-items:center;margin-top:14px}.nav .cnt{flex:1;text-align:center;color:var(--mut)}
+.sheet-bg{position:fixed;inset:0;background:rgba(20,30,25,.25);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .3s;z-index:20}
+.sheet-bg.on{opacity:1;pointer-events:auto}
+.sheet{position:absolute;bottom:0;left:0;right:0;background:rgba(255,255,255,.92);border-radius:26px 26px 0 0;padding:20px 18px calc(24px + env(safe-area-inset-bottom,0px));transform:translateY(100%);transition:transform .4s cubic-bezier(.2,.9,.25,1.1)}
+.sheet-bg.on .sheet{transform:none}
+.sheet .btn{display:block;width:100%;margin-top:10px;text-align:center}
+.paperwrap{overflow:auto;border-radius:12px;background:#e9edeb;padding:10px}
+.paper{background:#fff;width:595px;min-height:842px;padding:34px;color:#000;position:relative;transform-origin:top right}
+.paper .h{display:flex;justify-content:space-between;flex-wrap:wrap;border-bottom:2px solid #000;padding-bottom:8px;margin-bottom:14px;gap:4px 12px}
+.paper .t{text-align:center;width:100%;font-weight:800}
+.paper .qi{margin-bottom:14px;display:flex;gap:8px}.paper .qi .n{font-weight:800}.paper .qi .b{flex:1}.paper .qi .s{white-space:nowrap}
+.paper .ft{border-top:1px solid #000;margin-top:24px;padding-top:8px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+.paper .mo{text-align:center;width:100%;font-style:italic}
+.task{display:flex;align-items:center;gap:10px;padding:12px 14px;margin-bottom:10px}
+.task.done span{text-decoration:line-through;opacity:.5}
+.task span{flex:1}.task input{width:22px;height:22px;accent-color:var(--g)}
+.x{background:none;border:0;font-size:18px;color:var(--mut)}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:var(--g);color:#fff;padding:10px 18px;border-radius:14px;opacity:0;transition:opacity .3s;z-index:30;pointer-events:none}
+.toast.on{opacity:1}
+@media print{body{overflow:visible;background:#fff}.screen,.sheet-bg,.toast{display:none!important}#prev{display:block!important;position:static;opacity:1;transform:none;padding:0}#prev .top{display:none}.paperwrap{padding:0;background:#fff;overflow:visible}.paper{zoom:1!important;margin:0 auto}}
+@media (prefers-reduced-motion:reduce){*{transition-duration:.01s!important}}
+</style>
+</head>
+<body>
+
+<!-- الرئيسية -->
+<section class="screen on" id="home">
+  <div class="hero"><div class="logo" style="margin:auto">س</div><h1>س</h1><p>اكتب أسئلتك بكل سهولة وصدرها بالشكل الذي تريده</p></div>
+  <button class="glass card dark press" onclick="go('subjects')"><span class="ic">✏️</span><span><b>إنشاء الأسئلة</b><small>صمّم ورقة امتحان كاملة</small></span><span class="go">ابدأ الآن</span></button>
+  <button class="glass card press" onclick="go('tasks')"><span class="ic">📋</span><span><b>المهام والملاحظات</b><small>نظّم يومك</small></span></button>
+</section>
+
+<!-- المواد -->
+<section class="screen" id="subjects">
+  <div class="top"><button class="btn" onclick="back()">→</button><h2>اختر المادة</h2></div>
+  <div class="grid" id="subGrid"></div>
+  <div class="row" style="margin-top:16px"><input id="newSub" placeholder="مادة أخرى..."><button class="btn" style="flex:0 0 auto" onclick="addSub()">إضافة</button></div>
+</section>
+
+<!-- إعدادات الورقة -->
+<section class="screen" id="setup">
+  <div class="top"><button class="btn" onclick="back()">→</button><h2>إعدادات الورقة</h2><button class="btn" onclick="open_('tplSheet')">النماذج</button></div>
+  <div class="glass sec"><h3>الورقة</h3>
+    <div class="row"><label class="field"><span>القياس</span><select id="size"><option>A4</option><option>A5</option></select></label>
+    <label class="field"><span>الخط</span><select id="font"><option>Cairo</option><option>Tahoma</option><option>Arial</option><option>Times New Roman</option></select></label></div>
+    <div class="row"><label class="field"><span>حجم الخط</span><input id="fsize" type="number" value="16" min="10" max="30"></label>
+    <label class="field"><span>إطار الورقة</span><select id="frame"><option value="0">بدون</option><option value="1">مع إطار</option></select></label>
+    <label class="field"><span>لون الإطار</span><input id="fcolor" type="color" value="#1f4d3a" style="padding:2px;height:44px"></label></div>
+    <label class="field"><span>شكل السؤال</span><select id="qstyle"><option value="ord">السؤال الأول، السؤال الثاني ...</option><option value="s">س١، س٢ ...</option><option value="q">Q1, Q2 ...</option></select></label></div>
+  <div class="glass sec"><h3>الترويسة</h3>
+    <label class="field"><span>اسم المدرسة</span><input id="school"></label>
+    <div class="row"><label class="field"><span>نوع الامتحان</span><input id="etype" placeholder="امتحان نهاية الفصل"></label>
+    <label class="field"><span>العام الدراسي</span><input id="year" placeholder="2026 / 2027"></label></div>
+    <div class="row"><label class="field"><span>الوقت</span><input id="time" placeholder="ساعتان"></label>
+    <label class="field"><span>التاريخ</span><input id="date" type="date"></label></div>
+    <label class="field"><span>خانة إضافية (اختياري)</span><input id="extra" placeholder="الصف: السادس"></label></div>
+  <div class="glass sec"><h3>التذييل</h3>
+    <div class="row"><label class="field"><span>أستاذ المادة</span><input id="teacher"></label>
+    <label class="field"><span>مدير المدرسة</span><input id="principal"></label></div>
+    <label class="field"><span>عبارة تحفيزية</span><input id="motto" placeholder="بالتوفيق للجميع"></label></div>
+  <div class="row"><button class="btn" onclick="saveTpl()">حفظ كنموذج جاهز</button><button class="btn pri" onclick="toEditor()">متابعة إلى الأسئلة</button></div>
+</section>
+
+<!-- المحرر -->
+<section class="screen" id="editor">
+  <div class="top"><button class="btn" onclick="back()">→</button><h2 id="edTitle">الأسئلة</h2><button class="btn" onclick="preview()">معاينة</button></div>
+  <div class="tb">
+    <button onclick="cmd('undo')">↶</button><button onclick="cmd('redo')">↷</button>
+    <button onclick="cmd('bold')"><b>B</b></button><button onclick="cmd('italic')"><i>I</i></button><button onclick="cmd('underline')"><u>U</u></button>
+    <button onclick="size(1)">A+</button><button onclick="size(-1)">A−</button>
+  </div>
+  <div class="tb">
+    <button onclick="document.getElementById('img').click()">🖼 صورة</button>
+    <button onclick="tbl()">▦ جدول</button>
+    <button onclick="cmd('insertUnorderedList')">• نقاط</button>
+    <button onclick="open_('shapeSheet')">△ أشكال</button>
+    <button onclick="layer(1)">⬆</button><button onclick="layer(-1)">⬇</button>
+  </div>
+  <input type="file" id="img" accept="image/*" hidden onchange="addImg(this)">
+  <div class="q" id="q" contenteditable="true" onclick="pick(event)"></div>
+  <div class="row" style="margin-top:10px;align-items:center"><span style="flex:0 0 auto">الدرجة:</span><input id="score" type="number" min="0" placeholder="0"></div>
+  <div class="nav"><button class="btn" onclick="step(-1)">السابق</button><span class="cnt" id="cnt"></span><button class="btn" onclick="step(1)">التالي</button></div>
+  <div class="row" style="margin-top:12px"><button class="btn" onclick="newQ()">＋ سؤال جديد</button><button class="btn" onclick="delQ()">حذف السؤال</button></div>
+</section>
+
+<!-- المعاينة -->
+<section class="screen" id="prev">
+  <div class="top"><button class="btn" onclick="back()">→</button><h2>المعاينة</h2><button class="btn pri" onclick="open_('expSheet')">تصدير</button></div>
+  <div class="paperwrap" id="pw"><div class="paper" id="paper"></div></div>
+</section>
+
+<!-- المهام -->
+<section class="screen" id="tasks">
+  <div class="top"><button class="btn" onclick="back()">→</button><h2>المهام والملاحظات</h2></div>
+  <div class="row" style="margin-bottom:14px"><input id="tin" placeholder="مهمة أو ملاحظة جديدة" onkeydown="if(event.key==='Enter')addTask()"><button class="btn pri" style="flex:0 0 auto" onclick="addTask()">إضافة</button></div>
+  <div id="tl"></div>
+  <textarea id="notes" rows="6" placeholder="ملاحظات حرة..." oninput="save('notes',this.value)"></textarea>
+</section>
+
+<!-- نوافذ منبثقة -->
+<div class="sheet-bg" id="expSheet" onclick="close_(event)"><div class="sheet"><h3 style="margin:0">تصدير الورقة</h3>
+  <button class="btn pri" onclick="exp('pdf')">حفظ PDF عالي الدقة</button><button class="btn" onclick="exp('jpg')">حفظ صورة JPG</button><button class="btn" onclick="$('expSheet').classList.remove('on');window.print()">طباعة</button></div></div>
+<div class="sheet-bg" id="tplSheet" onclick="close_(event)"><div class="sheet"><h3 style="margin:0">النماذج الجاهزة</h3><div id="tplList"></div></div></div>
+<div class="sheet-bg" id="shapeSheet" onclick="close_(event)"><div class="sheet"><h3 style="margin:0">أشكال هندسية</h3>
+  <div class="grid" style="margin-top:10px"><button class="btn" onclick="shape('rect')">▭ مستطيل</button><button class="btn" onclick="shape('circle')">◯ دائرة</button><button class="btn" onclick="shape('tri')">△ مثلث</button><button class="btn" onclick="shape('line')">— خط</button></div></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const $=id=>document.getElementById(id);
+const S=(k,d)=>{try{const v=localStorage.getItem('seen_'+k);return v?JSON.parse(v):d}catch(e){return d}};
+function save(k,v){try{localStorage.setItem('seen_'+k,JSON.stringify(v))}catch(e){}}
+let stack=['home'],subjects=S('subs',['العربية','الإسلامية','الكيمياء','الإنكليزي','الرياضيات','الفيزياء']),
+subject='',qs=[{h:'',s:''}],cur=0,tasks=S('tasks',[]),tpls=S('tpls',[]),selImg=null;
+const FIELDS=['size','font','fsize','frame','fcolor','school','etype','year','time','date','extra','qstyle','teacher','principal','motto'];
+
+function go(id){$(stack.at(-1)).classList.remove('on');$(stack.at(-1)).classList.add('back');
+ const n=$(id);n.classList.remove('back');requestAnimationFrame(()=>n.classList.add('on'));stack.push(id);
+ if(id==='tasks')renderTasks();}
+function back(){if(stack.length<2)return;const c=stack.pop();$(c).classList.remove('on');$(c).classList.remove('back');
+ const p=$(stack.at(-1));p.classList.add('on');p.classList.remove('back');}
+function open_(id){$(id).classList.add('on');if(id==='tplSheet')renderTpls()}
+function close_(e){if(e.target.classList.contains('sheet-bg'))e.target.classList.remove('on')}
+function toast(t){const e=$('toast');e.textContent=t;e.classList.add('on');setTimeout(()=>e.classList.remove('on'),1800)}
+
+function renderSubs(){$('subGrid').innerHTML=subjects.map(s=>`<button class="glass sub press" onclick="pickSub('${s.replace(/'/g,'')}')">${s}</button>`).join('')}
+function pickSub(s){subject=s;go('setup')}
+function addSub(){const v=$('newSub').value.trim();if(!v)return;subjects.push(v);save('subs',subjects);$('newSub').value='';renderSubs()}
+
+function getCfg(){const c={};FIELDS.forEach(f=>c[f]=$(f).value);return c}
+function setCfg(c){FIELDS.forEach(f=>{if(c[f]!==undefined)$(f).value=c[f]})}
+function saveTpl(){const n=prompt('اسم النموذج:');if(!n)return;tpls.push({n,c:getCfg()});save('tpls',tpls);toast('تم حفظ النموذج')}
+function renderTpls(){$('tplList').innerHTML=tpls.length?tpls.map((t,i)=>`<button class="btn" onclick="useTpl(${i})">${t.n}</button>`).join(''):'<p style="color:var(--mut)">لا توجد نماذج محفوظة بعد.</p>'}
+function useTpl(i){setCfg(tpls[i].c);$('tplSheet').classList.remove('on');toast('تم تطبيق النموذج')}
+
+function toEditor(){qs=[{h:'',s:''}];cur=0;$('edTitle').textContent='أسئلة '+subject;go('editor');loadQ()}
+function keep(){qs[cur]={h:$('q').innerHTML,s:$('score').value}}
+function loadQ(){$('q').innerHTML=qs[cur].h;$('score').value=qs[cur].s;$('cnt').textContent=`سؤال ${cur+1} من ${qs.length}`}
+function step(d){keep();const n=cur+d;if(n<0||n>=qs.length)return;cur=n;loadQ()}
+function newQ(){keep();qs.push({h:'',s:''});cur=qs.length-1;loadQ();$('q').focus()}
+function delQ(){if(qs.length<2){qs=[{h:'',s:''}]}else{qs.splice(cur,1);cur=Math.max(0,cur-1)}loadQ()}
+function cmd(c){$('q').focus();document.execCommand(c)}
+let fs=3;function size(d){fs=Math.min(7,Math.max(1,fs+d));$('q').focus();document.execCommand('fontSize',false,fs)}
+function ins(h){$('q').focus();document.execCommand('insertHTML',false,h)}
+function tbl(){const r=prompt('عدد الصفوف:','3'),c=prompt('عدد الأعمدة:','3');if(!r||!c)return;
+ ins('<table>'+('<tr>'+'<td>&nbsp;</td>'.repeat(+c)+'</tr>').repeat(+r)+'</table><br>')}
+function addImg(i){const f=i.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{ins(`<img src="${r.result}" style="position:relative;z-index:1;width:50%">`)};r.readAsDataURL(f);i.value=''}
+function shape(t){$('shapeSheet').classList.remove('on');const m={
+ rect:'<span style="display:inline-block;width:90px;height:50px;border:2px solid #000;position:relative;z-index:1"></span>',
+ circle:'<span style="display:inline-block;width:60px;height:60px;border:2px solid #000;border-radius:50%;position:relative;z-index:1"></span>',
+ tri:'<svg width="70" height="60" style="position:relative;z-index:1"><polygon points="35,4 66,56 4,56" fill="none" stroke="#000" stroke-width="2"/></svg>',
+ line:'<span style="display:inline-block;width:120px;border-top:2px solid #000;position:relative;z-index:1"></span>'};ins(m[t]+'&nbsp;')}
+function pick(e){const t=e.target;document.querySelectorAll('#q .sel').forEach(x=>x.classList.remove('sel'));
+ if(t!==$('q')&&(t.tagName==='IMG'||t.tagName==='SPAN'||t.tagName==='svg')){selImg=t;t.style.outline='2px dashed #2d6a50'}else selImg=null}
+function layer(d){if(!selImg){toast('اضغط على صورة أو شكل أولاً');return}selImg.style.zIndex=(+selImg.style.zIndex||1)+d;toast('الطبقة: '+selImg.style.zIndex)}
+
+function qn(i,s){const n=i+1,O=['الأول','الثاني','الثالث','الرابع','الخامس','السادس','السابع','الثامن','التاسع','العاشر'];
+ if(s==='s')return 'س'+String(n).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d])+':';
+ if(s==='q')return 'Q'+n+':';
+ return 'السؤال '+(O[i]||n)+':'}
+function preview(){keep();const c=getCfg(),p=$('paper');
+ const w=c.size==='A5'?420:595,h=c.size==='A5'?595:842;
+ p.style.width=w+'px';p.style.minHeight=h+'px';p.style.fontFamily=`${c.font},Cairo,sans-serif`;p.style.fontSize=c.fsize+'px';
+ p.style.border=c.frame==='1'?`4px double ${c.fcolor}`:'none';
+ const hd=[`المادة: ${subject}`,c.time&&`الوقت: ${c.time}`,c.date&&`التاريخ: ${c.date}`,c.extra].filter(Boolean).map(x=>`<span>${x}</span>`).join('');
+ const tot=qs.reduce((a,q)=>a+(+q.s||0),0);
+ p.innerHTML=`<div class="h"><div class="t">${c.school||''}</div><div class="t" style="font-weight:600">${[c.etype,c.year].filter(Boolean).join(' - ')}</div>${hd}</div>`+
+ qs.map((q,i)=>`<div class="qi"><span class="n">${qn(i,c.qstyle)}</span><div class="b">${q.h||'&nbsp;'}</div>${q.s?`<span class="s">(${q.s} د)</span>`:''}</div>`).join('')+
+ `<div class="ft">${c.teacher?`<span>أستاذ المادة: ${c.teacher}</span>`:''}${c.principal?`<span>مدير المدرسة: ${c.principal}</span>`:''}${tot?`<span>المجموع: ${tot}</span>`:''}${c.motto?`<div class="mo">${c.motto}</div>`:''}</div>`;
+ const k=Math.min(1,(innerWidth-56)/w);p.style.zoom=k;go('prev')}
+async function exp(t){$('expSheet').classList.remove('on');const p=$('paper'),z=p.style.zoom;p.style.zoom=1;
+ try{const cv=await html2canvas(p,{scale:3,backgroundColor:'#fff'});
+ let dl=null;try{dl=window.claude?await claude.use('downloads'):null}catch(e){}if(!dl)dl={save:async({filename,data})=>{const u=URL.createObjectURL(data),a=document.createElement('a');a.href=u;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000)}};const bl=()=>new Promise(r=>cv.toBlob(r,'image/jpeg',.95));
+ if(t==='jpg'){await dl.save({filename:'exam.jpg',data:await bl()})}
+ else{const{jsPDF}=window.jspdf,d=new jsPDF('p','mm',$('size').value==='A5'?'a5':'a4'),W=d.internal.pageSize.getWidth(),H=cv.height*W/cv.width;
+  d.addImage(cv.toDataURL('image/jpeg',.95),'JPEG',0,0,W,H);await dl.save({filename:'exam.pdf',data:d.output('blob')})}
+ toast('تم الحفظ')}catch(e){toast(e&&e.code==='declined'?'تم الإلغاء':'تعذّر التصدير')}
+ p.style.zoom=z}
+
+function renderTasks(){$('tl').innerHTML=tasks.map((t,i)=>`<div class="glass task ${t.d?'done':''}"><input type="checkbox" ${t.d?'checked':''} onchange="tasks[${i}].d=this.checked;save('tasks',tasks);renderTasks()"><span>${t.t.replace(/</g,'&lt;')}</span><button class="x" onclick="tasks.splice(${i},1);save('tasks',tasks);renderTasks()">✕</button></div>`).join('')||'<p style="color:var(--mut);text-align:center">أضف أول مهمة لك.</p>';$('notes').value=S('notes','')}
+function addTask(){const v=$('tin').value.trim();if(!v)return;tasks.unshift({t:v,d:false});save('tasks',tasks);$('tin').value='';renderTasks()}
+
+renderSubs();
+if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+</script>
+</body>
+</html>
